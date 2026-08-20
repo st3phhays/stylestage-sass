@@ -1,21 +1,979 @@
-@import "fonts";
+// @import "fonts";
 
 // You can modify the theme directly, or override some of the variables
 // Overrides just need placed prior to the theme import
 // For example:
 // $color-primary: #3a0;
-@import "theme";
-@import "reset";
-@import "logomark";
-@import "typography";
-@import "layout";
-@import "header";
-@import "nav";
-@import "about";
-@import "guidelines";
-@import "contribute";
-@import "files";
-@import "styles";
-@import "profile";
-@import "footer";
-@import "links";
+// @import "theme";
+// @import "reset";
+// @import "logomark";
+// @import "typography";
+// @import "layout";
+// @import "header";
+// @import "nav";
+// @import "about";
+// @import "guidelines";
+// @import "contribute";
+// @import "files";
+// @import "styles";
+// @import "profile";
+// @import "footer";
+// @import "links";
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+/* =========================================================
+   RETRO FUTURE / ARCADE TERMINAL
+   ========================================================= */
+
+:root {
+  --bg: #080812;
+  --bg-soft: #101022;
+  --surface: #15152b;
+  --surface-bright: #1d1d38;
+
+  --text: #f4f1ff;
+  --text-muted: #aaa8c2;
+
+  --cyan: #39f5ff;
+  --pink: #ff3cac;
+  --yellow: #ffe66d;
+  --purple: #9b5cff;
+  --green: #63ff9b;
+
+  --border: rgba(57, 245, 255, 0.35);
+
+  --shadow-cyan:
+    0 0 0 1px rgba(57, 245, 255, 0.15),
+    0 0 20px rgba(57, 245, 255, 0.08);
+
+  --shadow-pink:
+    0 0 0 1px rgba(255, 60, 172, 0.15),
+    0 0 25px rgba(255, 60, 172, 0.12);
+
+  --radius: 14px;
+
+  --max-width: 1180px;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background:
+    linear-gradient(
+      rgba(8, 8, 18, 0.94),
+      rgba(8, 8, 18, 0.98)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(255, 255, 255, 0.018) 3px,
+      rgba(255, 255, 255, 0.018) 4px
+    );
+
+  color: var(--text);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+::selection {
+  background: var(--pink);
+  color: white;
+}
+
+.container {
+  width: min(
+    calc(100% - 2rem),
+    var(--max-width)
+  );
+
+  margin-inline: auto;
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4 {
+  margin-top: 0;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+
+  color: white;
+
+  text-shadow:
+    3px 3px 0 var(--pink),
+    -3px -3px 0 var(--cyan);
+
+  transform: skew(-3deg);
+}
+
+h2 {
+  position: relative;
+
+  margin-bottom: 1.75rem;
+
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--cyan);
+
+  text-shadow: 0 0 20px rgba(57, 245, 255, 0.25);
+}
+
+h2::before {
+  content: "//";
+
+  margin-right: 0.5rem;
+
+  color: var(--pink);
+  font-family: "DM Mono", monospace;
+  font-size: 0.65em;
+}
+
+h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+
+  color: var(--yellow);
+  font-size: 1.5rem;
+}
+
+h4 {
+  color: var(--pink);
+}
+
+p {
+  max-width: 70ch;
+  margin: 0 0 1.25rem;
+}
+
+strong {
+  color: white;
+}
+
+a {
+  color: var(--cyan);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+
+  transition:
+    color 150ms ease,
+    text-shadow 150ms ease;
+}
+
+a:hover {
+  color: var(--pink);
+
+  text-shadow:
+    0 0 8px rgba(255, 60, 172, 0.5);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+
+/* =========================================================
+   SKIP LINK
+   ========================================================= */
+
+.skip-link {
+  position: fixed;
+  z-index: 999;
+
+  top: 1rem;
+  left: 1rem;
+
+  padding: 0.75rem 1rem;
+
+  background: var(--yellow);
+  color: var(--bg);
+
+  font-weight: 700;
+
+  transform: translateY(-200%);
+
+  transition: transform 150ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header {
+  position: relative;
+  overflow: hidden;
+
+  padding: 7rem 0 5rem;
+
+  border-bottom: 1px solid var(--border);
+
+  background:
+    radial-gradient(
+      circle at 15% 30%,
+      rgba(57, 245, 255, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 60%,
+      rgba(255, 60, 172, 0.16),
+      transparent 30%
+    ),
+    var(--bg);
+}
+
+header::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(57, 245, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(57, 245, 255, 0.06) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+header .container {
+  position: relative;
+}
+
+header h2 {
+  max-width: 700px;
+
+  margin-bottom: 1.5rem;
+
+  color: white;
+  font-size: clamp(1.2rem, 3vw, 1.75rem);
+  font-weight: 500;
+
+  text-shadow: none;
+}
+
+header h2::before {
+  display: none;
+}
+
+header p {
+  color: var(--text-muted);
+  font-family: "DM Mono", monospace;
+  font-size: 0.85rem;
+}
+
+header p a {
+  color: var(--yellow);
+}
+
+
+/* =========================================================
+   GITHUB BUTTON
+   ========================================================= */
+
+.link-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+
+  margin-top: 1rem;
+  padding: 0.8rem 1.25rem;
+
+  border: 1px solid var(--pink);
+  border-radius: 999px;
+
+  background: rgba(255, 60, 172, 0.08);
+
+  color: white;
+  font-family: "DM Mono", monospace;
+  font-size: 0.8rem;
+  text-decoration: none;
+
+  box-shadow:
+    0 0 20px rgba(255, 60, 172, 0.08);
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.link-github:hover {
+  background: var(--pink);
+  color: white;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 30px rgba(255, 60, 172, 0.35);
+}
+
+.link-github svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+nav {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  border-bottom: 1px solid rgba(57, 245, 255, 0.2);
+
+  background: rgba(8, 8, 18, 0.88);
+
+  backdrop-filter: blur(14px);
+}
+
+nav ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+nav li {
+  margin: 0;
+}
+
+nav a {
+  display: block;
+
+  padding: 1rem 1rem;
+
+  color: var(--text-muted);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  transition:
+    color 150ms ease,
+    background 150ms ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: rgba(57, 245, 255, 0.08);
+  color: var(--cyan);
+
+  text-shadow: none;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+main {
+  padding: 5rem 0;
+}
+
+article {
+  margin-bottom: 4rem;
+}
+
+article > .container {
+  padding: 3rem;
+
+  border: 1px solid rgba(57, 245, 255, 0.15);
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.025),
+      rgba(255, 255, 255, 0.01)
+    );
+
+  box-shadow: var(--shadow-cyan);
+}
+
+article + article {
+  margin-top: 3rem;
+}
+
+section + section {
+  margin-top: 4rem;
+}
+
+
+/* =========================================================
+   BLOCKQUOTE
+   ========================================================= */
+
+blockquote {
+  position: relative;
+
+  margin: 2.5rem 0;
+  padding: 2rem 2rem 2rem 3rem;
+
+  border-left: 4px solid var(--pink);
+  border-radius: 0 var(--radius) var(--radius) 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 60, 172, 0.1),
+      rgba(155, 92, 255, 0.04),
+      transparent
+    );
+
+  box-shadow:
+    inset 10px 0 30px rgba(255, 60, 172, 0.03);
+}
+
+blockquote::before {
+  content: ">";
+  position: absolute;
+
+  top: 0.9rem;
+  left: 1rem;
+
+  color: var(--pink);
+
+  font-family: "DM Mono", monospace;
+  font-size: 1.5rem;
+}
+
+blockquote strong {
+  color: var(--pink);
+}
+
+
+/* =========================================================
+   LISTS
+   ========================================================= */
+
+ul,
+ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.55rem;
+}
+
+article ul li::marker {
+  color: var(--cyan);
+}
+
+article ol {
+  counter-reset: steps;
+  padding-left: 0;
+
+  list-style: none;
+}
+
+article ol li {
+  counter-increment: steps;
+
+  position: relative;
+
+  padding: 1rem 1rem 1rem 4rem;
+
+  border-bottom: 1px dashed rgba(57, 245, 255, 0.2);
+}
+
+article ol li::before {
+  content: counter(steps, decimal-leading-zero);
+
+  position: absolute;
+  left: 0;
+  top: 0.9rem;
+
+  color: var(--pink);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   CTA / DOWNLOAD LINKS
+   ========================================================= */
+
+.link-guidelines,
+.link-downloadcss,
+.link-downloadhtml,
+.link-codepen,
+.link-allstyles,
+.link-support,
+.link-twittercontact,
+.link-rss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0.5rem 0.5rem 0.5rem 0;
+
+  padding: 0.75rem 1.1rem;
+
+  border: 1px solid var(--cyan);
+  border-radius: 8px;
+
+  background: rgba(57, 245, 255, 0.06);
+
+  color: var(--cyan);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.link-guidelines:hover,
+.link-downloadcss:hover,
+.link-downloadhtml:hover,
+.link-codepen:hover,
+.link-allstyles:hover,
+.link-support:hover,
+.link-twittercontact:hover,
+.link-rss:hover {
+  background: var(--cyan);
+  color: var(--bg);
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(57, 245, 255, 0.2);
+
+  text-shadow: none;
+}
+
+
+/* =========================================================
+   SOURCE FILES
+   ========================================================= */
+
+#files {
+  margin-top: 3rem;
+  padding-top: 2rem;
+
+  border-top: 1px solid rgba(255, 60, 172, 0.2);
+}
+
+#files h3 {
+  margin-top: 0;
+}
+
+
+/* =========================================================
+   CURRENTLY STAGED STYLE
+   ========================================================= */
+
+.profile {
+  position: relative;
+
+  padding: 3rem 0;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(155, 92, 255, 0.12),
+      rgba(255, 60, 172, 0.08)
+    );
+
+  border-top: 1px solid rgba(155, 92, 255, 0.3);
+  border-bottom: 1px solid rgba(155, 92, 255, 0.3);
+}
+
+.profile::before {
+  content: "CURRENT_BUILD";
+
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: var(--green);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.profile h4 {
+  margin-bottom: 1.5rem;
+
+  font-family: "DM Mono", monospace;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.profile ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+
+  margin: 0 0 1.5rem;
+  padding: 0;
+
+  list-style: none;
+}
+
+.profile li {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+
+  border: 1px solid rgba(57, 245, 255, 0.1);
+
+  background: rgba(0, 0, 0, 0.15);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.8rem;
+}
+
+.profile li span:first-child {
+  margin-bottom: 0.2rem;
+
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+
+.profile li span:last-child {
+  color: white;
+}
+
+.profile > .container > a {
+  color: var(--green);
+  font-family: "DM Mono", monospace;
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   FEATURED STYLES
+   ========================================================= */
+
+#styles {
+  padding: 5rem 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgba(255, 60, 172, 0.1),
+      transparent 45%
+    );
+}
+
+#styles h2 {
+  text-align: center;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+
+  margin: 2rem 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.features li {
+  margin: 0;
+}
+
+.features li > span {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  padding: 1.5rem;
+
+  border: 1px solid rgba(255, 60, 172, 0.25);
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 60, 172, 0.08),
+      rgba(57, 245, 255, 0.04)
+    );
+
+  box-shadow: var(--shadow-pink);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+
+.features li > span:hover {
+  border-color: var(--pink);
+
+  transform:
+    translateY(-6px)
+    rotate(-1deg);
+}
+
+.features li a {
+  margin-bottom: 0.5rem;
+
+  color: white;
+
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.features li a:hover {
+  color: var(--pink);
+}
+
+.features li > span > span {
+  color: var(--text-muted);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.7rem;
+}
+
+.link-allstyles {
+  display: flex;
+  width: max-content;
+
+  margin-inline: auto;
+}
+
+
+/* =========================================================
+   PAGE FOOTER
+   ========================================================= */
+
+.page-footer {
+  padding: 4rem 0;
+
+  border-top: 1px solid rgba(57, 245, 255, 0.2);
+
+  background: #05050c;
+
+  color: var(--text-muted);
+
+  font-size: 0.85rem;
+}
+
+.page-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+
+  list-style: none;
+}
+
+.page-footer li {
+  margin: 0;
+}
+
+.page-footer p {
+  max-width: 65ch;
+}
+
+.page-footer a {
+  color: var(--cyan);
+}
+
+.page-footer .link-github {
+  margin-top: 0;
+  padding: 0.45rem 0.8rem;
+
+  border-color: rgba(57, 245, 255, 0.35);
+}
+
+.page-footer .link-github:hover {
+  background: var(--cyan);
+}
+
+.page-footer strong {
+  color: white;
+}
+
+
+/* =========================================================
+   LITTLE TERMINAL DETAILS
+   ========================================================= */
+
+main article::before {
+  content: "STYLE_STAGE // 01";
+
+  display: block;
+
+  margin-bottom: 1rem;
+
+  color: rgba(57, 245, 255, 0.45);
+
+  font-family: "DM Mono", monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+}
+
+#guidelines::before {
+  content: "STYLE_STAGE // 02";
+}
+
+#contribute::before {
+  content: "STYLE_STAGE // 03";
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  header {
+    padding: 5rem 0 4rem;
+  }
+
+  nav ul {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  nav a {
+    white-space: nowrap;
+  }
+
+  article > .container {
+    padding: 2rem 1.25rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .profile ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    width: min(
+      calc(100% - 1.25rem),
+      var(--max-width)
+    );
+  }
+
+  header {
+    padding: 4rem 0 3rem;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  main {
+    padding: 3rem 0;
+  }
+
+  article > .container {
+    padding: 1.5rem 1rem;
+  }
+
+  blockquote {
+    padding: 1.5rem 1rem 1.5rem 2rem;
+  }
+
+  .profile {
+    padding: 2.5rem 0;
+  }
+
+  .page-footer ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
